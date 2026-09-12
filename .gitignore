@@ -1,0 +1,78 @@
+# --- Maven ---
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+!/.mvn/wrapper/maven-wrapper.properties
+
+# --- Java ---
+*.class
+*.war
+*.jar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+hs_err_pid*
+replay_pid*
+
+# --- Open Liberty ---
+wlp/usr/servers/.logs/
+wlp/usr/servers/.pid/
+liberty/wlp/usr/
+# liberty plugin genera target/liberty, ya cubierto por target/
+
+# --- NetBeans ---
+nbproject/private/
+nb-private/
+build/
+dist/
+nbdist/
+.nb-gradle/
+private/
+
+# --- Eclipse ---
+.settings/
+.project
+.classpath
+.factorypath
+.springBeans
+.sts4-cache
+
+# --- IntelliJ IDEA ---
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# --- VS Code ---
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.swp
+*~
+
+# --- Logs & temp ---
+*.log
+*.tmp
+*.bak
+*.orig
+
+# --- Tests coverage ---
+jacoco.exec
+site/
+

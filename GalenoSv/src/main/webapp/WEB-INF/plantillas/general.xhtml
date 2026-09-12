@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="jakarta.faces.facelets">
+<f:view locale="#{idiomaBean.locale}">
+    <h:head>
+        <title>
+            <ui:insert name="titulo">#{msg['sistema.titulo']}</ui:insert>
+        </title>
+    </h:head>
+    <h:body>
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-3">
+                <h:outputText value="#{msg['sistema.titulo']}"/>
+            </div>
+            <div class="ui-g-12 ui-md-6">
+                <h1>
+                    <ui:insert name="encabezado">#{msg['sistema.titulo']}</ui:insert>
+                </h1>
+            </div>
+            <div class="ui-g-12 ui-md-3">
+                <h:form id="frmIdioma">
+                    <p:selectOneMenu id="cmbIdioma" value="#{idiomaBean.idioma}">
+                        <f:selectItem itemLabel="#{msg['idioma.espanol']}" itemValue="es"/>
+                        <f:selectItem itemLabel="#{msg['idioma.ingles']}" itemValue="en"/>
+                        <f:selectItem itemLabel="#{msg['idioma.frances']}" itemValue="fr"/>
+                        <p:ajax listener="#{idiomaBean.cambiarIdioma(idiomaBean.idioma)}" update="@all"/>
+                    </p:selectOneMenu>
+                </h:form>
+            </div>
+
+            <div class="ui-g-12 ui-md-2">
+                <nav>
+                    <h:panelGrid columns="1">
+                        <h:outputText value="#{msg['layout.menu']}"/>
+                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/TipoMedioContacto.jsf">
+                            <h:outputText value="#{msg['tipoMedioContacto.titulo']}"/>
+                        </h:outputLink>
+                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/TipoDocumento.jsf">
+                            <h:outputText value="#{msg['tipoDocumento.titulo']}"/>
+                        </h:outputLink>
+                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/TipoExamen.jsf">
+                            <h:outputText value="#{msg['tipoExamen.titulo']}"/>
+                        </h:outputLink>
+                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/Examen.jsf">
+                            <h:outputText value="#{msg['examen.titulo']}"/>
+                        </h:outputLink>
+                    </h:panelGrid>
+                </nav>
+            </div>
+            <main class="ui-g-12 ui-md-10">
+                <p:messages id="mensajes" showDetail="true" closable="true"/>
+                <ui:insert name="contenido">
+                    <h:outputText value="#{msg['layout.sinContenido']}"/>
+                </ui:insert>
+            </main>
+
+            <footer class="ui-g-12">
+                <h:outputText value="#{msg['layout.footer']}"/>
+            </footer>
+        </div>
+
+        <ui:insert name="extras"/>
+    </h:body>
+</f:view>
+</html>
