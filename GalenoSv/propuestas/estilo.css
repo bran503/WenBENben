@@ -1,0 +1,307 @@
+/* ********** ESTILOS GENERALES ********** */
+:root {
+    --bg: #f7fafb;
+    --panel: #fff;
+    --ink: #24303f;
+    --muted: #687587;
+    --line: #dbe3e8;
+    --green: #16836f;
+    --blue: #3066be;
+    --coral: #d56b57;
+    --soft: #eef8f5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+}
+
+h1 {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1.1;
+}
+
+h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+}
+
+/* ********** PARTE 1: ENCABEZADO Y BIENVENIDA PRINCIPAL ********** */
+.topbar {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 38px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.tooth {
+    width: 36px;
+    height: 40px;
+    border: 2px solid #9bd5c8;
+    background: var(--soft);
+    border-radius: 18px 18px 13px 13px;
+}
+
+.links {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+}
+
+.links a {
+    text-decoration: none;
+    color: var(--muted);
+}
+
+.hero {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 42px 28px 24px;
+    display: grid;
+    grid-template-columns: 1fr 430px;
+    gap: 34px;
+    align-items: center;
+}
+
+.eyebrow {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    margin-bottom: 12px;
+}
+
+.copy {
+    margin: 16px 0 0;
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 17px;
+    max-width: 650px;
+}
+
+.cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.btn {
+    border: 0;
+    border-radius: 6px;
+    padding: 12px 17px;
+    background: var(--green);
+    color: #fff;
+    font-weight: 700;
+}
+
+.btn.alt {
+    background: #e8eef6;
+    color: var(--ink);
+}
+
+.photo {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 18px 45px rgba(33, 52, 70, .08);
+}
+
+.scene {
+    height: 310px;
+    border-radius: 8px;
+    background:
+        linear-gradient(140deg, rgba(22, 131, 111, .22), rgba(48, 102, 190, .08)),
+        linear-gradient(0deg, #fff 0 22%, #dceff4 22% 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.scene::before {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 76px;
+    left: 72px;
+    bottom: 58px;
+    border-radius: 40px 70px 40px 40px;
+    background: #74b8c8;
+    box-shadow: 70px -42px 0 -10px #f8ffff;
+}
+
+.scene::after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    right: 70px;
+    top: 64px;
+    border-radius: 50%;
+    background: #fff;
+    border: 12px solid #9bd5c8;
+}
+
+/* ********** PARTE 2: TARJETAS DE RESUMEN CENTRAL ********** */
+.quick {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px 28px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+article {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+.green {
+    background: #d9f2ec;
+    color: var(--green);
+}
+
+.blue {
+    background: #e4edff;
+    color: var(--blue);
+}
+
+.coral {
+    background: #fde9e4;
+    color: var(--coral);
+}
+
+article p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.45;
+    font-size: 14px;
+}
+
+/* ********** PARTE 3: RECORRIDO, AREAS DE TRABAJO Y CIERRE ********** */
+.journey {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 28px 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.box p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.45;
+    font-size: 14px;
+}
+
+.route {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.route div {
+    border-left: 4px solid #9bd5c8;
+    padding: 8px 0 8px 12px;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.route strong {
+    display: block;
+    color: var(--ink);
+    margin-bottom: 3px;
+}
+
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.module-grid span {
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 10px;
+    color: var(--muted);
+    font-size: 14px;
+    background: #fbfdfd;
+}
+
+.strip {
+    max-width: 1064px;
+    margin: 0 auto 30px;
+    background: #24303f;
+    color: #fff;
+    border-radius: 8px;
+    padding: 18px 22px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.strip span {
+    color: #ccd6df;
+}
+
+/* ********** AJUSTES RESPONSIVOS ********** */
+@media (max-width: 900px) {
+    .links {
+        display: none;
+    }
+
+    .hero,
+    .quick,
+    .journey {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: 34px;
+    }
+
+    .strip {
+        flex-direction: column;
+    }
+}

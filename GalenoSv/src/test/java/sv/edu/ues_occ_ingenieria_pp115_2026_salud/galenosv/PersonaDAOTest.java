@@ -44,6 +44,14 @@ public class PersonaDAOTest {
         assertThrows(IllegalArgumentException.class, ()-> dao.buscarPorNombre("  "));
     }
 
+    @Test void testFindByNombre_errorDeBaseNoSeOculta(){
+        when(em.createQuery(anyString(), eq(Persona.class))).thenThrow(new IllegalStateException("Sin conexion"));
+
+        IllegalStateException error = assertThrows(IllegalStateException.class, () -> dao.buscarPorNombre("Juan"));
+
+        assertTrue(error.getMessage().contains("buscar personas por nombre"));
+    }
+
     @Test void testFindByApellido_ok(){
         Persona p = new Persona(); p.setApellidos("Perez");
         when(em.createQuery(anyString(), eq(Persona.class))).thenReturn(query);

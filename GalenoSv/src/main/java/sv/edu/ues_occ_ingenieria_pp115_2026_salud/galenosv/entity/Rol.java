@@ -33,7 +33,7 @@ public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_rol", columnDefinition = "uuid")
     private UUID idRol;
     @Size(max = 155)
@@ -113,7 +113,6 @@ public class Rol implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Rol)) {
             return false;
         }

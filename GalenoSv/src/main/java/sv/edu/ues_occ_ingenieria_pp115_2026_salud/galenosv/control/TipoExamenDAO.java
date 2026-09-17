@@ -28,6 +28,25 @@ public class TipoExamenDAO extends DefaultDAO<TipoExamen> {
         catch (Exception ex) { throw new IllegalStateException("Error en buscarPorNombre", ex); }
     }
 
+    public List<TipoExamen> findByNombreLike(String filtro, int first, int max) {
+        if (filtro == null || filtro.trim().length() < 3 || first < 0 || max <= 0) {
+            throw new IllegalArgumentException("Parametros invalidos para buscar tipo de examen");
+        }
+
+        try {
+            TypedQuery<TipoExamen> q = getEntityManager()
+                    .createNamedQuery("TipoExamen.findByNombreLike", TipoExamen.class);
+            q.setParameter("nombre", "%" + filtro.trim().toUpperCase() + "%");
+            q.setFirstResult(first);
+            q.setMaxResults(max);
+            return q.getResultList();
+        } catch (IllegalArgumentException ex) {
+            throw ex;
+        } catch (Exception ex) {
+            throw new IllegalStateException("Error en findByNombreLike", ex);
+        }
+    }
+
     @Override
     public EntityManager getEntityManager() {
         return em;

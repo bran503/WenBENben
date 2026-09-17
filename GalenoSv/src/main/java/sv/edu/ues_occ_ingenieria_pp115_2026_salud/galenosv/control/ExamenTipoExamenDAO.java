@@ -20,6 +20,34 @@ public class ExamenTipoExamenDAO extends DefaultDAO<ExamenTipoExamen> {
         super(ExamenTipoExamen.class);
     }
 
+    @Override
+    public List<ExamenTipoExamen> findAll() {
+        try {
+            return getEntityManager()
+                    .createQuery("SELECT e FROM ExamenTipoExamen e LEFT JOIN FETCH e.idExamen LEFT JOIN FETCH e.idTipoExamen", ExamenTipoExamen.class)
+                    .getResultList();
+        } catch (Exception ex) {
+            throw new IllegalStateException("No se pueden listar registros de examen tipo examen", ex);
+        }
+    }
+
+    @Override
+    public List<ExamenTipoExamen> findRange(int first, int pageSize) {
+        if (first < 0 || pageSize <= 0) {
+            throw new IllegalArgumentException("Parametros invalidos");
+        }
+
+        try {
+            TypedQuery<ExamenTipoExamen> query = getEntityManager()
+                    .createQuery("SELECT e FROM ExamenTipoExamen e LEFT JOIN FETCH e.idExamen LEFT JOIN FETCH e.idTipoExamen", ExamenTipoExamen.class);
+            query.setFirstResult(first);
+            query.setMaxResults(pageSize);
+            return query.getResultList();
+        } catch (Exception ex) {
+            throw new IllegalStateException("No se pueden listar registros de examen tipo examen", ex);
+        }
+    }
+
     public List<ExamenTipoExamen> findByIdExamen(UUID idExamen, int first, int max) {
         if (idExamen == null || first < 0 || max <= 0) {
             throw new IllegalArgumentException("Parametros invalidos para buscar por examen");

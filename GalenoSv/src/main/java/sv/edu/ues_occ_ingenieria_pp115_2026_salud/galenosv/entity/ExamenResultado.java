@@ -14,12 +14,10 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.UUID;
-import java.util.Date;
+import java.time.OffsetDateTime;
 
 /**
  *
@@ -37,12 +35,11 @@ public class ExamenResultado implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_examen_resultado", columnDefinition = "uuid")
     private UUID idExamenResultado;
     @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCreacion;
+    private OffsetDateTime fechaCreacion;
     @Size(max = 2147483647)
     @Column(name = "resultado")
     private String resultado;
@@ -71,11 +68,11 @@ public class ExamenResultado implements Serializable {
         this.idExamenResultado = idExamenResultado;
     }
 
-    public Date getFechaCreacion() {
+    public OffsetDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(OffsetDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -120,7 +117,6 @@ public class ExamenResultado implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ExamenResultado)) {
             return false;
         }

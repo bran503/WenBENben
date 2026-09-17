@@ -16,7 +16,7 @@ public class IdiomaBean implements Serializable {
     private String pais = "SV";
 
     public Locale getLocale() {
-        return new Locale(idioma, pais);
+        return Locale.of(idioma, pais);
     }
 
     public void cambiarIdioma(String nuevoIdioma) {

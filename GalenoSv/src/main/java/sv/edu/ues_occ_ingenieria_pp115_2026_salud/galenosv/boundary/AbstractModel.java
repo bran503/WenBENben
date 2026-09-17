@@ -188,12 +188,17 @@ public abstract class AbstractModel<T> implements Serializable {
     }
 
     protected boolean esNombreVacio(T registro) {
+        if (registro == null) {
+            return true;
+        }
         try {
             java.lang.reflect.Method m = registro.getClass().getMethod("getNombre");
             String nombre = (String) m.invoke(registro);
             return nombre == null || nombre.trim().isEmpty();
-        } catch (Exception e) {
-            return true;
+        } catch (NoSuchMethodException e) {
+            return false;
+        } catch (ReflectiveOperationException | ClassCastException e) {
+            throw new IllegalStateException("No se pudo validar el nombre del registro", e);
         }
     }
 

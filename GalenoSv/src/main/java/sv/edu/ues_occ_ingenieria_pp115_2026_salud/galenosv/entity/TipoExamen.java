@@ -27,13 +27,14 @@ import java.util.List;
 @NamedQueries({
     @NamedQuery(name = "TipoExamen.findAll", query = "SELECT t FROM TipoExamen t"),
     @NamedQuery(name = "TipoExamen.findByNombre", query = "SELECT t FROM TipoExamen t WHERE t.nombre = :nombre"),
+    @NamedQuery(name = "TipoExamen.findByNombreLike", query = "SELECT t FROM TipoExamen t WHERE UPPER(t.nombre) LIKE :nombre ORDER BY t.nombre ASC, t.activo DESC"),
     @NamedQuery(name = "TipoExamen.findByActivo", query = "SELECT t FROM TipoExamen t WHERE t.activo = :activo"),
     @NamedQuery(name = "TipoExamen.findByObservaciones", query = "SELECT t FROM TipoExamen t WHERE t.observaciones = :observaciones")})
 public class TipoExamen implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_tipo_examen", columnDefinition = "uuid")
     private UUID idTipoExamen;
     @Size(max = 2147483647)
@@ -103,7 +104,6 @@ public class TipoExamen implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof TipoExamen)) {
             return false;
         }

@@ -21,7 +21,7 @@
                                      lazy="true"
                                      paginator="true"
                                      rows="#{tipoDocumentoModel.cantidadRegistros}"
-                                     paginatorPosition="bottom"
+                                     paginatorPosition="both"
                                      emptyMessage="#{msg['tabla.sinRegistros']}"
                                      selectionMode="single"
                                      selection="#{tipoDocumentoModel.registro}"
@@ -68,7 +68,8 @@
                                          value="#{tipoDocumentoModel.registro.nombre}"
                                          required="true"
                                          requiredMessage="#{msg['tipoDocumento.nombre.requerido']}"
-                                         size="50"/>
+                                         size="50"
+                                         maxlength="155"/>
 
                             <p:outputLabel for="swActivo" value="#{msg['tipoDocumento.form.activo']}"/>
                             <p:toggleSwitch id="swActivo"

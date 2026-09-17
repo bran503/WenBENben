@@ -33,7 +33,7 @@ public class Examen implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_examen", columnDefinition = "uuid")
     private UUID idExamen;
     @Size(max = 255)
@@ -113,7 +113,6 @@ public class Examen implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Examen)) {
             return false;
         }

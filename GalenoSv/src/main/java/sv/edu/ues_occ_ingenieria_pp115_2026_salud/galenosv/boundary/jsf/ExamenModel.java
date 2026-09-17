@@ -1,11 +1,13 @@
 package sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.jsf;
 
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.io.Serializable;
 import java.util.UUID;
+import org.primefaces.event.SelectEvent;
 import sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.AbstractModel;
 import sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.control.DefaultDAO;
 import sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.control.ExamenDAO;
@@ -22,6 +24,9 @@ public class ExamenModel extends AbstractModel<Examen> implements Serializable {
 
     @Inject
     ExamenDAO dao;
+
+    @Inject
+    ExamenTipoExamenModel examenTipoExamenModel;
 
     public ExamenModel() {
         this.nombreBean = "Examen";
@@ -43,6 +48,42 @@ public class ExamenModel extends AbstractModel<Examen> implements Serializable {
         r.setIdExamen(UUID.randomUUID());
         r.setActivo(true);
         return r;
+    }
+
+    @Override
+    public void selectionHandler(SelectEvent<Examen> r) {
+        super.selectionHandler(r);
+        sincronizarDetalle();
+    }
+
+    @Override
+    public void btnNuevoHandler(ActionEvent e) {
+        super.btnNuevoHandler(e);
+        sincronizarDetalle();
+    }
+
+    @Override
+    public void btnCancelarHandler(ActionEvent e) {
+        super.btnCancelarHandler(e);
+        sincronizarDetalle();
+    }
+
+    @Override
+    public void btnGuardarHandler(ActionEvent actionEvent) {
+        super.btnGuardarHandler(actionEvent);
+        sincronizarDetalle();
+    }
+
+    @Override
+    public void btnModificarHandler(ActionEvent actionEvent) {
+        super.btnModificarHandler(actionEvent);
+        sincronizarDetalle();
+    }
+
+    @Override
+    public void btnEliminarHandler(ActionEvent actionEvent) {
+        super.btnEliminarHandler(actionEvent);
+        sincronizarDetalle();
     }
 
     @Override
@@ -79,5 +120,18 @@ public class ExamenModel extends AbstractModel<Examen> implements Serializable {
             }
         }
         return null;
+    }
+
+    private void sincronizarDetalle() {
+        if (this.registro != null && this.registro.getIdExamen() != null) {
+            examenTipoExamenModel.setIdExamen(this.registro.getIdExamen());
+        } else {
+            examenTipoExamenModel.setIdExamen(null);
+        }
+    }
+
+    public ExamenTipoExamenModel getExamenTipoExamenModel() {
+        sincronizarDetalle();
+        return examenTipoExamenModel;
     }
 }

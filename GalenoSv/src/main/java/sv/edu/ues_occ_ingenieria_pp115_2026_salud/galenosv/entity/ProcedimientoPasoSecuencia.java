@@ -31,10 +31,10 @@ public class ProcedimientoPasoSecuencia implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_procedimiento_paso_secuencia", columnDefinition = "uuid")
     private UUID idProcedimientoPasoSecuencia;
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_procedimiento_paso_referencia", columnDefinition = "uuid")
     private UUID idProcedimientoPasoReferencia;
     @Size(max = 20)
@@ -92,7 +92,6 @@ public class ProcedimientoPasoSecuencia implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ProcedimientoPasoSecuencia)) {
             return false;
         }

@@ -5,10 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.entity.Persona;
-import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Stateless
 public class PersonaDAO extends DefaultDAO<Persona> {
@@ -25,69 +22,60 @@ public class PersonaDAO extends DefaultDAO<Persona> {
         return em;
     }
 
-    // Metodos propios JPQL - patron visto en otro proyecto: try + Logger + return List.of() sin throw
     public List<Persona> buscarPorNombre(String nombres) {
+        if (nombres == null || nombres.isBlank()) {
+            throw new IllegalArgumentException("Los nombres son requeridos");
+        }
         try {
-            if (nombres == null || nombres.trim().isEmpty()) throw new IllegalArgumentException("nombres no puede ser nulo o vacio");
             String jpql = "SELECT p FROM Persona p WHERE p.nombres = :nombres";
             TypedQuery<Persona> q = getEntityManager().createQuery(jpql, Persona.class);
             q.setParameter("nombres", nombres.trim());
             return q.getResultList();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.WARNING, "Parametro invalido buscarPorNombre", ex);
-            throw ex;
         } catch (Exception ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, "Error en buscarPorNombre", ex);
-            return Collections.emptyList();
+            throw new IllegalStateException("No se pudieron buscar personas por nombre", ex);
         }
     }
 
     public List<Persona> buscarPorApellido(String apellidos) {
+        if (apellidos == null || apellidos.isBlank()) {
+            throw new IllegalArgumentException("Los apellidos son requeridos");
+        }
         try {
-            if (apellidos == null || apellidos.trim().isEmpty()) throw new IllegalArgumentException("apellidos no puede ser nulo o vacio");
             String jpql = "SELECT p FROM Persona p WHERE p.apellidos = :apellidos";
             TypedQuery<Persona> q = getEntityManager().createQuery(jpql, Persona.class);
             q.setParameter("apellidos", apellidos.trim());
             return q.getResultList();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.WARNING, null, ex);
-            throw ex;
         } catch (Exception ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, "Error en buscarPorApellido", ex);
-            return Collections.emptyList();
+            throw new IllegalStateException("No se pudieron buscar personas por apellido", ex);
         }
     }
 
     public List<Persona> buscarPorDocumento(String valorDocumento) {
+        if (valorDocumento == null || valorDocumento.isBlank()) {
+            throw new IllegalArgumentException("El valor del documento es requerido");
+        }
         try {
-            if (valorDocumento == null || valorDocumento.trim().isEmpty()) throw new IllegalArgumentException("valorDocumento no puede ser nulo");
             String jpql = "SELECT DISTINCT p FROM Persona p JOIN p.documentoList d WHERE d.valor = :valor";
             TypedQuery<Persona> q = getEntityManager().createQuery(jpql, Persona.class);
             q.setParameter("valor", valorDocumento.trim());
             return q.getResultList();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.WARNING, null, ex);
-            throw ex;
         } catch (Exception ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, "Error en buscarPorDocumento", ex);
-            return Collections.emptyList();
+            throw new IllegalStateException("No se pudieron buscar personas por documento", ex);
         }
     }
 
     public List<Persona> buscarPorNombreYApellido(String nombres, String apellidos) {
+        if (nombres == null || nombres.isBlank() || apellidos == null || apellidos.isBlank()) {
+            throw new IllegalArgumentException("Los nombres y apellidos son requeridos");
+        }
         try {
-            if (nombres == null || apellidos == null) throw new IllegalArgumentException("nombres y apellidos requeridos");
             String jpql = "SELECT p FROM Persona p WHERE p.nombres = :nombres AND p.apellidos = :apellidos";
             TypedQuery<Persona> q = getEntityManager().createQuery(jpql, Persona.class);
-            q.setParameter("nombres", nombres);
-            q.setParameter("apellidos", apellidos);
+            q.setParameter("nombres", nombres.trim());
+            q.setParameter("apellidos", apellidos.trim());
             return q.getResultList();
-        } catch (IllegalArgumentException ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.WARNING, null, ex);
-            throw ex;
         } catch (Exception ex) {
-            Logger.getLogger(PersonaDAO.class.getName()).log(Level.SEVERE, "Error en buscarPorNombreYApellido", ex);
-            return Collections.emptyList();
+            throw new IllegalStateException("No se pudieron buscar personas por nombre y apellido", ex);
         }
     }
 }

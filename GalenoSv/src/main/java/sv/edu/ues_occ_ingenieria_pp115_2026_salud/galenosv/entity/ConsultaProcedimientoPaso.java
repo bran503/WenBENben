@@ -15,12 +15,10 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.UUID;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -38,15 +36,13 @@ public class ConsultaProcedimientoPaso implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_consulta_procedimiento_paso", columnDefinition = "uuid")
     private UUID idConsultaProcedimientoPaso;
     @Column(name = "fecha_inicio")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaInicio;
+    private OffsetDateTime fechaInicio;
     @Column(name = "fecha_fin")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaFin;
+    private OffsetDateTime fechaFin;
     @Size(max = 20)
     @Column(name = "estado")
     private String estado;
@@ -74,19 +70,19 @@ public class ConsultaProcedimientoPaso implements Serializable {
         this.idConsultaProcedimientoPaso = idConsultaProcedimientoPaso;
     }
 
-    public Date getFechaInicio() {
+    public OffsetDateTime getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(OffsetDateTime fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
+    public OffsetDateTime getFechaFin() {
         return fechaFin;
     }
 
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(OffsetDateTime fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -131,7 +127,6 @@ public class ConsultaProcedimientoPaso implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof ConsultaProcedimientoPaso)) {
             return false;
         }

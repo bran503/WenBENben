@@ -34,21 +34,39 @@
 
             <div class="ui-g-12 ui-md-2">
                 <nav>
-                    <h:panelGrid columns="1">
-                        <h:outputText value="#{msg['layout.menu']}"/>
-                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/TipoMedioContacto.jsf">
-                            <h:outputText value="#{msg['tipoMedioContacto.titulo']}"/>
-                        </h:outputLink>
-                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/TipoDocumento.jsf">
-                            <h:outputText value="#{msg['tipoDocumento.titulo']}"/>
-                        </h:outputLink>
-                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/TipoExamen.jsf">
-                            <h:outputText value="#{msg['tipoExamen.titulo']}"/>
-                        </h:outputLink>
-                        <h:outputLink value="#{facesContext.externalContext.requestContextPath}/paginas/Examen.jsf">
-                            <h:outputText value="#{msg['examen.titulo']}"/>
-                        </h:outputLink>
-                    </h:panelGrid>
+                    <h:form id="frmMenu">
+                        <p:panelMenu id="menuPrincipal" style="width:100%">
+                            <p:submenu label="#{msg['menu.catalogos']}">
+                                <p:menuitem value="#{msg['tipoMedioContacto.titulo']}" outcome="/paginas/TipoMedioContacto"/>
+                                <p:menuitem value="#{msg['tipoDocumento.titulo']}" outcome="/paginas/TipoDocumento"/>
+                                <p:menuitem value="#{msg['tipoExamen.titulo']}" outcome="/paginas/TipoExamen"/>
+                                <p:menuitem value="#{msg['examen.titulo']}" outcome="/paginas/Examen"/>
+                                <p:menuitem value="#{msg['procedimiento.titulo']}" outcome="/paginas/Procedimiento"/>
+                            </p:submenu>
+                            <p:submenu label="#{msg['menu.clinica']}">
+                                <p:menuitem value="#{msg['clinica.titulo']}" outcome="/paginas/Clinica"/>
+                                <p:menuitem value="#{msg['rol.titulo']}" outcome="/paginas/Rol"/>
+                            </p:submenu>
+                            <p:submenu label="#{msg['menu.personas']}">
+                                <p:menuitem value="#{msg['persona.titulo']}" outcome="/paginas/Persona"/>
+                                <p:menuitem value="#{msg['personaRol.titulo']}" outcome="/paginas/PersonaRol"/>
+                                <p:menuitem value="#{msg['documento.titulo']}" outcome="/paginas/Documento"/>
+                                <p:menuitem value="#{msg['medioContacto.titulo']}" outcome="/paginas/MedioContacto"/>
+                            </p:submenu>
+                            <p:submenu label="#{msg['menu.procedimientos']}">
+                                <p:menuitem value="#{msg['procedimientoPaso.titulo']}" outcome="/paginas/ProcedimientoPaso"/>
+                                <p:menuitem value="#{msg['procedimientoPasoSecuencia.titulo']}" outcome="/paginas/ProcedimientoPasoSecuencia"/>
+                                <p:menuitem value="#{msg['procedimientoPasoExamen.titulo']}" outcome="/paginas/ProcedimientoPasoExamen"/>
+                            </p:submenu>
+                            <p:submenu label="#{msg['menu.atencion']}">
+                                <p:menuitem value="#{msg['consulta.titulo']}" outcome="/paginas/Consulta"/>
+                                <p:menuitem value="#{msg['consultaProcedimiento.titulo']}" outcome="/paginas/ConsultaProcedimiento"/>
+                                <p:menuitem value="#{msg['consultaProcedimientoPaso.titulo']}" outcome="/paginas/ConsultaProcedimientoPaso"/>
+                                <p:menuitem value="#{msg['ordenExamen.titulo']}" outcome="/paginas/OrdenExamen"/>
+                                <p:menuitem value="#{msg['examenResultado.titulo']}" outcome="/paginas/ExamenResultado"/>
+                            </p:submenu>
+                        </p:panelMenu>
+                    </h:form>
                 </nav>
             </div>
             <main class="ui-g-12 ui-md-10">

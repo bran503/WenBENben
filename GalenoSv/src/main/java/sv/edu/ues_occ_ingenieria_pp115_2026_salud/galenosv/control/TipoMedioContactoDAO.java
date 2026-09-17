@@ -4,6 +4,7 @@ import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import java.util.ArrayList;
 import sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.entity.TipoMedioContacto;
 import java.util.List;
 
@@ -22,27 +23,26 @@ public class TipoMedioContactoDAO extends DefaultDAO<TipoMedioContacto> {
         return em;
     }
 
-    // Metodo con NativeQuery + IllegalArgumentException + bucle + try (como pide nota)
+    // Metodo de busqueda puntual con consulta nativa, como se practico en clase.
     public List<TipoMedioContacto> buscarPorNombreNativo(String nombre) {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El parametro nombre no puede ser nulo o vacio");
         }
         try {
-            // Native query por nombre (equivalente a NamedQuery TipoMedioContacto.buscarPorNombre)
-            Query q = getEntityManager().createNativeQuery("SELECT * FROM tipo_medio_contacto WHERE nombre = :nombre", TipoMedioContacto.class);
+            Query q = getEntityManager()
+                    .createNativeQuery("SELECT * FROM tipo_medio_contacto WHERE nombre = :nombre", TipoMedioContacto.class);
             q.setParameter("nombre", nombre.trim());
-            // Segundo ejemplo con getFirstResult pattern
-            // q.setFirstResult(0); q.setMaxResults(1);
-            List<TipoMedioContacto> resultado = q.getResultList();
-            // Bucle de verificacion (como en nota: despues de usar el bucle)
+            List<TipoMedioContacto> resultado = convertirResultado(q.getResultList());
             for (TipoMedioContacto t : resultado) {
-                if (t.getNombre() == null) continue;
+                if (t.getNombre() == null) {
+                    continue;
+                }
             }
             return resultado;
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception ex) {
-            throw new IllegalStateException("Error en createNativeQuery buscarPorNombreNativo", ex);
+            throw new IllegalStateException("Error en buscarPorNombreNativo", ex);
         }
     }
 
@@ -51,15 +51,25 @@ public class TipoMedioContactoDAO extends DefaultDAO<TipoMedioContacto> {
             throw new IllegalArgumentException("Parametro nombre invalido");
         }
         try {
-            Query q = getEntityManager().createNativeQuery("SELECT * FROM tipo_medio_contacto WHERE nombre = :nombre", TipoMedioContacto.class);
-            q.setParameter("nombre", nombre);
+            Query q = getEntityManager()
+                    .createNativeQuery("SELECT * FROM tipo_medio_contacto WHERE nombre = :nombre", TipoMedioContacto.class);
+            q.setParameter("nombre", nombre.trim());
             q.setMaxResults(1);
-            // q.getSingleResult() con manejo
-            List<TipoMedioContacto> list = q.getResultList();
-            if (list.isEmpty()) return null;
-            return list.get(0); // getFirstResult pattern
+            List<TipoMedioContacto> list = convertirResultado(q.getResultList());
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list.get(0);
         } catch (Exception ex) {
             throw new IllegalStateException("Error en buscarPrimeroPorNombre", ex);
         }
+    }
+
+    private List<TipoMedioContacto> convertirResultado(List<?> datos) {
+        List<TipoMedioContacto> resultado = new ArrayList<>();
+        for (Object dato : datos) {
+            resultado.add(TipoMedioContacto.class.cast(dato));
+        }
+        return resultado;
     }
 }

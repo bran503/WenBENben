@@ -15,11 +15,9 @@ import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import java.io.Serializable;
 import java.util.UUID;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 /**
@@ -35,12 +33,11 @@ public class PersonaRol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Convert(converter = Clases.UUIDConverter.class)
+    @Convert(converter = sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.boundary.conversores.UUIDConverter.class)
     @Column(name = "id_persona_rol", columnDefinition = "uuid")
     private UUID idPersonaRol;
     @Column(name = "fecha_creacion")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date fechaCreacion;
+    private OffsetDateTime fechaCreacion;
     @OneToMany(mappedBy = "idPersonaRol", fetch = FetchType.LAZY)
     private List<ConsultaProcedimientoPaso> consultaProcedimientoPasoList;
     @JoinColumn(name = "id_clinica", referencedColumnName = "id_clinica")
@@ -70,11 +67,11 @@ public class PersonaRol implements Serializable {
         this.idPersonaRol = idPersonaRol;
     }
 
-    public Date getFechaCreacion() {
+    public OffsetDateTime getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(Date fechaCreacion) {
+    public void setFechaCreacion(OffsetDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
 
@@ -127,7 +124,6 @@ public class PersonaRol implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof PersonaRol)) {
             return false;
         }

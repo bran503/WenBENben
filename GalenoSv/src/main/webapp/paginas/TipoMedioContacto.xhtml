@@ -21,7 +21,7 @@
                                  lazy="true"
                                  paginator="true"
                                  rows="#{tipoMedioContactoModel.cantidadRegistros}"
-                                 paginatorPosition="bottom"
+                                 paginatorPosition="both"
                                  emptyMessage="#{msg['tabla.sinRegistros']}"
                                  selectionMode="single"
                                  selection="#{tipoMedioContactoModel.registro}"
@@ -68,7 +68,8 @@
                                      value="#{tipoMedioContactoModel.registro.nombre}"
                                      required="true"
                                      requiredMessage="#{msg['tipoMedioContacto.nombre.requerido']}"
-                                     size="50"/>
+                                     size="50"
+                                     maxlength="155"/>
 
                         <p:outputLabel for="swActivo" value="#{msg['tipoMedioContacto.form.activo']}"/>
                         <p:toggleSwitch id="swActivo"

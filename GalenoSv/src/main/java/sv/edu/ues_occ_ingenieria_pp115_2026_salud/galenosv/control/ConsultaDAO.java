@@ -5,7 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import sv.edu.ues_occ_ingenieria_pp115_2026_salud.galenosv.entity.Consulta;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 @Stateless
@@ -19,6 +19,34 @@ public class ConsultaDAO extends DefaultDAO<Consulta> {
     }
 
     @Override
+    public List<Consulta> findAll() {
+        try {
+            return getEntityManager()
+                    .createQuery("SELECT c FROM Consulta c LEFT JOIN FETCH c.idPersonaRol pr LEFT JOIN FETCH pr.idPersona LEFT JOIN FETCH pr.idRol", Consulta.class)
+                    .getResultList();
+        } catch (Exception ex) {
+            throw new IllegalStateException("No se pueden listar consultas", ex);
+        }
+    }
+
+    @Override
+    public List<Consulta> findRange(int first, int pageSize) {
+        if (first < 0 || pageSize <= 0) {
+            throw new IllegalArgumentException("Parametros invalidos");
+        }
+
+        try {
+            TypedQuery<Consulta> query = getEntityManager()
+                    .createQuery("SELECT c FROM Consulta c LEFT JOIN FETCH c.idPersonaRol pr LEFT JOIN FETCH pr.idPersona LEFT JOIN FETCH pr.idRol", Consulta.class);
+            query.setFirstResult(first);
+            query.setMaxResults(pageSize);
+            return query.getResultList();
+        } catch (Exception ex) {
+            throw new IllegalStateException("No se pueden listar consultas", ex);
+        }
+    }
+
+    @Override
     public EntityManager getEntityManager() {
         return em;
     }
@@ -27,7 +55,7 @@ public class ConsultaDAO extends DefaultDAO<Consulta> {
         try {
             String jpql = "SELECT c FROM Consulta c WHERE c.fechaFin IS NULL OR c.fechaFin > :ahora";
             TypedQuery<Consulta> query = getEntityManager().createQuery(jpql, Consulta.class);
-            query.setParameter("ahora", new Date());
+            query.setParameter("ahora", OffsetDateTime.now());
             return query.getResultList();
         } catch (IllegalArgumentException ex) {
             throw ex;
@@ -40,10 +68,10 @@ public class ConsultaDAO extends DefaultDAO<Consulta> {
         try {
             String jpql = "SELECT c FROM Consulta c WHERE c.fechaFin IS NULL OR c.fechaFin > :ahora";
             TypedQuery<Consulta> query = getEntityManager().createQuery(jpql, Consulta.class);
-            query.setParameter("ahora", new Date());
+            query.setParameter("ahora", OffsetDateTime.now());
             return query.getResultList();
         } catch (Exception ex) {
-            return List.of();
+            throw new IllegalStateException("No se pudieron buscar las consultas activas", ex);
         }
     }
 
@@ -60,7 +88,7 @@ public class ConsultaDAO extends DefaultDAO<Consulta> {
         TypedQuery<Consulta> q = getEntityManager().createQuery(
             "SELECT c FROM Consulta c WHERE c.idPersonaRol.idPersonaRol = :id AND (c.fechaFin IS NULL OR c.fechaFin > :ahora)", Consulta.class);
         q.setParameter("id", idPersonaRol);
-        q.setParameter("ahora", new Date());
+        q.setParameter("ahora", OffsetDateTime.now());
         return q.getResultList();
     }
 }
