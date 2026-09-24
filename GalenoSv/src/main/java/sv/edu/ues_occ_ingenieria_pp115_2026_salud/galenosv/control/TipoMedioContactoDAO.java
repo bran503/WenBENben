@@ -32,13 +32,7 @@ public class TipoMedioContactoDAO extends DefaultDAO<TipoMedioContacto> {
             Query q = getEntityManager()
                     .createNativeQuery("SELECT * FROM tipo_medio_contacto WHERE nombre = :nombre", TipoMedioContacto.class);
             q.setParameter("nombre", nombre.trim());
-            List<TipoMedioContacto> resultado = convertirResultado(q.getResultList());
-            for (TipoMedioContacto t : resultado) {
-                if (t.getNombre() == null) {
-                    continue;
-                }
-            }
-            return resultado;
+            return convertirResultado(q.getResultList());
         } catch (IllegalArgumentException ex) {
             throw ex;
         } catch (Exception ex) {

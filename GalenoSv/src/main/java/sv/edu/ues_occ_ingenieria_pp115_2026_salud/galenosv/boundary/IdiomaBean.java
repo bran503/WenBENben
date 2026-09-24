@@ -25,6 +25,8 @@ public class IdiomaBean implements Serializable {
             this.pais = "US";
         } else if ("fr".equals(nuevoIdioma)) {
             this.pais = "FR";
+        } else if ("zh".equals(nuevoIdioma)) {
+            this.pais = "CN";
         } else {
             this.idioma = "es";
             this.pais = "SV";
